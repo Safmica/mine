@@ -1,10 +1,12 @@
 <?php
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckSession;
+
 
 Route::get('/', function () {
     return view('home');
-})->name('home');
+})->name('home')->middleware(CheckSession::class);;
 
 Route::get('/signup', function () {
     return view('signup');
@@ -16,7 +18,7 @@ Route::get('/login', function () {
 
 Route::get('/index', function () {
     return view('index');
-})->name('index');
+})->name('index')->middleware('auth');;
 
 Route::post('/signup', [UserController::class, 'signup'])->name('signup.post');
 Route::post('/login', [UserController::class, 'login'])->name('login.post');
