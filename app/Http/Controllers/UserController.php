@@ -64,7 +64,7 @@ class UserController extends Controller
 
     public function logout()
     {
-        Session::forget('user_id');
+        Auth::logout('user_id');
         Cookie::queue(Cookie::forget('user_name'));
 
         return redirect('/login')->with('success', 'Logout berhasil');

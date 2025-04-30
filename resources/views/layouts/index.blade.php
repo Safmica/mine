@@ -8,6 +8,14 @@
 </head>
 <body class="bg-white">
     <x-navbar />
+    <div class="flex flex-row fixed">
+        <div class="w-64 h-screen bg-cos-yellow text-white rounded-lg">
+            @include('components.sidebar', ['courses' => $courses])
+        </div>
+        <div class="w-screen h-screen bg-white text-white rounded-lg">
+            @yield('content')
+        </div>
+    </div>
     <x-dynamic-button type="courses" />
     @if (session('success'))
         <div 
@@ -19,9 +27,6 @@
             {{ session('success') }}
         </div>
     @endif
-    <div class="container mx-auto mt-6">
-        @yield('content')
-    </div>
 </body>
 <script src="//unpkg.com/alpinejs" defer></script>
 </html>

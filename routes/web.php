@@ -2,6 +2,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckSession;
+use App\Http\Controllers\CourseController;
 
 
 Route::get('/', function () {
@@ -16,11 +17,14 @@ Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-Route::get('/index', function () {
-    return view('index');
-})->name('index')->middleware('auth');;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/index', [CourseController::class, 'index'], function () {
+        return view('index');})->name('index');
+    Route::resource('courses', CourseController::class);
+});
+
 
 Route::post('/signup', [UserController::class, 'signup'])->name('signup.post');
 Route::post('/login', [UserController::class, 'login'])->name('login.post');
-
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
