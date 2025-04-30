@@ -7,7 +7,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-white">
-    <x-navbarIndex />
+    <x-navbar />
+    <x-dynamic-button type="courses" />
     @if (session('success'))
         <div 
             x-data="{ show: true }" 
