@@ -6,9 +6,8 @@
     <title>@yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-cos-blue">
+<body class="bg-white">
     <x-navbar />
-
     <div class="container mx-auto mt-6">
         @yield('content')
     </div>
