@@ -20,6 +20,13 @@
                 <input type="password" name="password" required
                     class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fcbf49]">
             </div>
+            @if ($errors->any())
+                <div class="bg-red-100 text-red-700 p-2 rounded mb-4">
+                    @foreach ($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                    @endforeach
+                </div>
+            @endif
 
             <button type="submit"
                 class="w-full bg-[#fcbf49] text-white py-2 rounded-lg font-semibold hover:bg-yellow-500 transition">
