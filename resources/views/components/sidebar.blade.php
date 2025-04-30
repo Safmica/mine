@@ -1,4 +1,4 @@
-<div class="sidebar bg-cos-yellow text-black p-4 rounded-r-xl">
+<div class="sidebar bg-cos-yellow text-black p-4 rounded-r-xl max-h-screen overflow-auto">
     <h3 class="text-lg font-bold">Courses</h3>
     
     @if($courses->isEmpty())
@@ -7,7 +7,7 @@
         <ul class="mt-4">
             @foreach ($courses as $course)
                 <li class="mb-2">
-                    <a href="#" class="text-black  font-medium hover:text-yellow-500">{{ $course->title }}</a>
+                    <a href="#" class="text-black font-medium hover:text-yellow-500 break-words">{{ $course->title }}</a>
                 </li>
             @endforeach
         </ul>
