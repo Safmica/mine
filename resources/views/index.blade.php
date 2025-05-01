@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="p-4 text-2xl font-bold">
-    <h1>Courses</h1>
+    <h1>{{ Auth::user()->name }} > Courses</h1>
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">

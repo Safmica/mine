@@ -4,9 +4,14 @@
 
 @section('content')
 <div class="p-4 flex flex-row items-center space-x-2">
+    <a href="/">
+        <h1 class="text-2xl font-bold truncate overflow-hidden whitespace-nowrap max-w-xs" title="{{ $course->title }}">
+            {{ Auth::user()->name }}
+        </h1>
+    </a>
     <a href="{{ route('meetings.indexByCourse', $course->id) }}">
         <h1 class="text-2xl font-bold truncate overflow-hidden whitespace-nowrap max-w-xs" title="{{ $course->title }}">
-            {{ $course->title }}
+            > {{ $course->title }}
         </h1>
     </a>
     <a href="{{ route('meetings.indexByCourse', $course->id) }}">
