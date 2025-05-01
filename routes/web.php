@@ -3,6 +3,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckSession;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\MeetingController;
 
 
 Route::get('/', function () {
@@ -16,15 +17,16 @@ Route::get('/signup', function () {
 Route::get('/login', function () {
     return view('login');
 })->name('login');
-
+Route::post('/signup', [UserController::class, 'signup'])->name('signup.post');
+Route::post('/login', [UserController::class, 'login'])->name('login.post');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/index', [CourseController::class, 'index'], function () {
         return view('index');})->name('index');
+    Route::get('/meeting', [MeetingController::class, 'index'], function () {
+        return view('meeting');})->name('meeting');
+    Route::get('/courses/{course}/meetings', [MeetingController::class, 'indexByCourse'])->name('meetings.indexByCourse');
+    Route::post('/courses/{course}/meetings', [MeetingController::class, 'store'])->name('courses.meetings.store');
     Route::resource('courses', CourseController::class);
 });
-
-
-Route::post('/signup', [UserController::class, 'signup'])->name('signup.post');
-Route::post('/login', [UserController::class, 'login'])->name('login.post');
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');

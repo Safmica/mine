@@ -3,63 +3,70 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meeting;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class MeetingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Course $course)
     {
-        //
+        $meetings = $course->meetings;
+        $courses = Course::all();
+        
+        return view('meeting', compact('meetings', 'course', 'courses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function indexByCourse(Course $course)
+    {
+        $meetings = $course->meetings;
+        $courses = Course::all();
+
+        return view('meeting', compact('meetings', 'course', 'courses'));
+    }
+
     public function create()
     {
-        //
+        $courses = Course::all();
+        return view('meetings.create', compact('courses'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'meeting_name' => 'required|string|max:255',
+            'topic' => 'nullable|string|max:255',
+        ]);
+
+        Meeting::create($request->all());
+
+        return redirect()->route('meetings.indexByCourse', ['course' => $request->course_id])
+        ->with('success', 'Meeting created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Meeting $meeting)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Meeting $meeting)
     {
-        //
+        $courses = Course::all();
+        return view('meetings.edit', compact('meeting', 'courses'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Meeting $meeting)
     {
-        //
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'meeting_name' => 'required|string|max:255',
+            'topic' => 'nullable|string|max:255',
+        ]);
+
+        $meeting->update($request->all());
+
+        return redirect()->route('meetings.index')->with('success', 'Meeting updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Meeting $meeting)
     {
-        //
+        $meeting->delete();
+
+        return redirect()->route('meetings.index')->with('success', 'Meeting deleted successfully');
     }
 }

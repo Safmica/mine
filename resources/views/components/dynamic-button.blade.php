@@ -1,13 +1,26 @@
+@props(['type', 'course' => null])
 @php
     $endpoints = [
         'courses' => route('courses.store'),
-        'meetings' => '/meetings/store',
+        'meetings' => isset($course->id) ? route('courses.meetings.store', ['course' => $course->id]) : '#',
         'files' => '/files/store',
     ];
 
     $labels = [
         'courses' => 'Course',
         'meetings' => 'Meeting',
+        'files' => 'File',
+    ];
+
+    $title = [
+        'courses' => 'title',
+        'meetings' => 'meeting_name',
+        'files' => 'File',
+    ];
+
+    $desc = [
+        'courses' => 'description',
+        'meetings' => 'topic',
         'files' => 'File',
     ];
 
@@ -26,15 +39,37 @@
         <h2 class="text-2xl font-semibold mb-6 text-center">Add New {{ $label }}</h2>
 
         <form action="{{ $endpoint }}" method="POST">
-            @csrf
+        @csrf
+            @php
+                $courseId = isset($course->id) ? $course->id: null;
+            @endphp
+        @if($courseId)
+            <input type="hidden" name="course_id" value="{{ $courseId }}">
+        @endif
             <div class="mb-4">
-                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                <input type="text" name="title" id="title" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required>
+                <label for="title" class="block text-sm font-medium text-gray-700">
+                    @if ($type == 'courses')
+                        Title
+                    @elseif ($type == 'meetings')
+                        Meeting Name
+                    @else
+                        Item Title
+                    @endif
+                </label>
+                <input type="text" name="{{ $title[$type] }}" id="{{ $title[$type] }}" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required>
             </div>
 
             <div class="mb-4">
-                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                <textarea name="description" id="description" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required></textarea>
+                <label for="title" class="block text-sm font-medium text-gray-700">
+                    @if ($type == 'courses')
+                        Description
+                    @elseif ($type == 'meetings')
+                        Topic
+                    @else
+                        Item Title
+                    @endif
+                </label>
+                <textarea name="{{ $desc[$type] }}" id="{{ $desc[$type] }}" rows="4" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" required></textarea>
             </div>
 
             <div class="flex justify-end space-x-4 mt-6">
