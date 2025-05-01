@@ -7,7 +7,7 @@
         <ul class="mt-4">
             @foreach ($courses as $course)
                 <li class="mb-2">
-                    <a href="#" class="text-black font-medium hover:text-yellow-500 break-words">{{ $course->title }}</a>
+                    <a href="{{ route('meetings.indexByCourse', $course->id) }}" class="text-black font-medium hover:text-yellow-500 break-words">{{ $course->title }}</a>
                 </li>
             @endforeach
         </ul>

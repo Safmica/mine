@@ -10,8 +10,11 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
     @foreach ($courses as $course)
     <div class="bg-white rounded-lg shadow-lg p-4 flex flex-row items-center h-12">
-        <a href="{{ route('meetings.indexByCourse', $course->id) }}" class="w-full">
+        <a href="{{ route('meetings.indexByCourse', $course->id) }}" class="w-full group cursor-pointer relative">
             <h3 class="text-lg font-semibold text-center mb-2 truncate w-full">{{ $course->title }}</h3>
+            <span class="absolute top-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-sm text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {{ $course->description }}
+            </span>
         </a>
         <div class="relative">
             <button class="text-gray-500 hover:text-black focus:outline-none" onclick="toggleMenu({{ $course->id }})">

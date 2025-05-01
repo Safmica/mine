@@ -3,63 +3,71 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Models\Meeting;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Course $course)
     {
-        //
+        $files = $course->Files;
+        $courses = Course::all();
+        
+        return view('file', compact('files', 'course', 'courses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function indexByMeeting(Course $course, Course $meeting)
+    {
+        $Files = $meeting->Files;
+        $meetings = Meeting::all();
+
+        return view('file', compact('files', 'course', 'meeting', 'meetings'));
+    }
+
     public function create()
     {
-        //
+        $courses = Course::all();
+        return view('Files.create', compact('courses'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'File_name' => 'required|string|max:255',
+            'topic' => 'nullable|string|max:255',
+        ]);
+
+        File::create($request->all());
+
+        return redirect()->route('Files.indexByCourse', ['course' => $request->course_id])
+        ->with('success', 'File created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(File $file)
+    public function edit(File $File)
     {
-        //
+        $courses = Course::all();
+        return view('Files.edit', compact('File', 'courses'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(File $file)
+    public function update(Request $request, File $File)
     {
-        //
+        $request->validate([
+            'course_id' => 'required|exists:courses,id',
+            'File_name' => 'required|string|max:255',
+            'topic' => 'nullable|string|max:255',
+        ]);
+
+        $File->update($request->all());
+
+        return redirect()->route('Files.index')->with('success', 'File updated successfully');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, File $file)
+    public function destroy(File $File)
     {
-        //
-    }
+        $File->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(File $file)
-    {
-        //
+        return redirect()->route('Files.index')->with('success', 'File deleted successfully');
     }
 }

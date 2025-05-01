@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\CheckSession;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\FileController;
 
 
 Route::get('/', function () {
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/meeting', [MeetingController::class, 'index'], function () {
         return view('meeting');})->name('meeting');
     Route::get('/courses/{course}/meetings', [MeetingController::class, 'indexByCourse'])->name('meetings.indexByCourse');
+    Route::post('/courses/{course}/meetings', [MeetingController::class, 'store'])->name('courses.meetings.store');
+    Route::get('/courses/{course}/meetings/{meeting}/files', [FileController::class, 'indexByMeeting'])->name('files.indexByMeeting');
     Route::post('/courses/{course}/meetings', [MeetingController::class, 'store'])->name('courses.meetings.store');
     Route::resource('courses', CourseController::class);
 });
