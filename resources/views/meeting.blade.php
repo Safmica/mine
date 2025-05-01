@@ -1,6 +1,6 @@
 @extends('layouts.index')
 
-@section('title', 'Index')
+@section('title', 'Meetings')
 
 @section('content')
 <div class="p-4 flex flex-row items-center space-x-2">
