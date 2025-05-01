@@ -32,18 +32,18 @@
         </div>
     </div>
 
-    <x-dynamic-button type="courses" />
-
-    @if (session('success'))
-        <div 
-            x-data="{ show: true }" 
-            x-show="show"
-            x-init="setTimeout(() => show = false, 3000)" 
-            class="fixed top-5 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transition"
-        >
-            {{ session('success') }}
-        </div>
+    @if (Request::is('index'))
+        <x-dynamic-button type="courses" />
+    @elseif (Request::is('courses/*/meetings') && !Request::is('*/files'))
+        <x-dynamic-button type="meetings" :course="$course"/>
+    @elseif (Request::is('courses/*/meetings/*/files'))
+        <x-dynamic-button type="files" />
+    @else
+        <x-dynamic-button type="courses" />
     @endif
+
+
+    <x-alert />
 </body>
 <script src="//unpkg.com/alpinejs" defer></script>
 <script>

@@ -11,19 +11,20 @@ class FileController extends Controller
 {
     public function index(Course $course)
     {
-        $files = $course->Files;
-        $courses = Course::all();
+        $files = $course->files;
+        $meetings = Course::all();
         
         return view('file', compact('files', 'course', 'courses'));
     }
 
     public function indexByMeeting(Course $course, Meeting $meeting)
     {
-        $files = $meeting->Files;
+        $files = $meeting->files;
         $meetings = Meeting::all();
-
-        return view('file', compact('files', 'course', 'meeting', 'meetings'));
-    }
+        $courses = Course::all();
+    
+        return view('file', compact('files','course', 'courses', 'meeting', 'meetings'));
+    }    
 
     public function create()
     {

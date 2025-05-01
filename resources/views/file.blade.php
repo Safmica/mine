@@ -3,15 +3,19 @@
 @section('title', 'Index')
 
 @section('content')
-@section('content')
 <div class="p-4 flex flex-row items-center space-x-2">
     <a href="{{ route('meetings.indexByCourse', $course->id) }}">
         <h1 class="text-2xl font-bold truncate overflow-hidden whitespace-nowrap max-w-xs" title="{{ $course->title }}">
             {{ $course->title }}
         </h1>
     </a>
+    <a href="{{ route('meetings.indexByCourse', $course->id) }}">
+        <h1 class="text-2xl font-bold truncate overflow-hidden whitespace-nowrap max-w-xs" title="{{ $course->title }}">
+            > {{ $meeting->meeting_name }}
+        </h1>
+    </a>
     <h1 class="text-2xl font-bold flex-shrink-0">
-        > Meetings
+        > Files
     </h1>
 </div>
 

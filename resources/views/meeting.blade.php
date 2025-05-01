@@ -1,8 +1,7 @@
-@extends('layouts.meeting')
+@extends('layouts.index')
 
 @section('title', 'Index')
 
-@section('content')
 @section('content')
 <div class="p-4 flex flex-row items-center space-x-2">
     <a href="{{ route('meetings.indexByCourse', $course->id) }}">
@@ -18,7 +17,7 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
     @foreach ($meetings as $meeting)
     <div class="bg-white rounded-lg shadow-lg p-4 flex flex-row items-center h-12">
-        <a href="{{ route('files.indexByMeeting', ['course' => $course->id, 'meeting' => $meeting->id]) }}" class="w-full group cursor-pointer relative">
+        <a href="{{ route('files.indexByMeeting', [$course->id, $meeting->id]) }}" class="w-full group cursor-pointer relative">
             <h3 class="text-lg font-semibold text-center mb-2 truncate w-full">{{ $meeting->meeting_name }}</h3>
             <span class="absolute top-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-sm text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {{ $meeting->topic }}
