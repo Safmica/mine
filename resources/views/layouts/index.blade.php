@@ -37,7 +37,7 @@
     @elseif (Request::is('courses/*/meetings') && !Request::is('*/files'))
         <x-dynamic-button type="meetings" :course="$course"/>
     @elseif (Request::is('courses/*/meetings/*/files'))
-        <x-dynamic-button type="files" />
+        <x-dynamic-button type="files" :course="$course" :meeting="$meeting"/>
     @else
         <x-dynamic-button type="courses" />
     @endif

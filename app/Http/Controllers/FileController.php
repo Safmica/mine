@@ -35,16 +35,26 @@ class FileController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'File_name' => 'required|string|max:255',
-            'topic' => 'nullable|string|max:255',
+            'user_id' => 'required|exists:users,id',
+            'meeting_id' => 'required|exists:meetings,id',
+            'filename' => 'required|string|max:255',
+            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png,zip,rar|max:20480',
         ]);
+    
+        $filePath = $request->file('file')->store('files', 'public');
 
-        File::create($request->all());
-
-        return redirect()->route('Files.indexByCourse', ['course' => $request->course_id])
-        ->with('success', 'File created successfully');
+        File::create([
+            'user_id' => $request->user_id,
+            'meeting_id' => $request->meeting_id,
+            'filename' => $request->filename,
+            'filepath' => $filePath,
+        ]);
+    
+        return redirect()
+            ->route('files.indexByMeeting', ['course' => $request->course_id, 'meeting' => $request->meeting_id])
+            ->with('success', 'File uploaded successfully!');
     }
+    
 
     public function edit(File $File)
     {

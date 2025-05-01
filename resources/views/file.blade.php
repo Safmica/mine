@@ -20,16 +20,13 @@
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-    @foreach ($meetings as $meeting)
+    @foreach ($files as $file)
     <div class="bg-white rounded-lg shadow-lg p-4 flex flex-row items-center h-12">
-        <a href="{{ route('files.indexByMeeting', ['course' => $course->id, 'meeting' => $meeting->id]) }}" class="w-full group cursor-pointer relative">
-            <h3 class="text-lg font-semibold text-center mb-2 truncate w-full">{{ $meeting->meeting_name }}</h3>
-            <span class="absolute top-full left-1/2 transform -translate-x-1/2 mb-2 w-max px-2 py-1 text-sm text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {{ $meeting->topic }}
-            </span>
+        <a href="{{ asset('storage/' . $file->filepath) }}" target="_blank" class="w-full group cursor-pointer relative">
+            <h3 class="text-lg font-semibold text-center mb-2 truncate w-full">{{ $file->filename }}</h3>
         </a>
         <div class="relative">
-            <button class="text-gray-500 hover:text-black focus:outline-none" onclick="toggleMenu({{ $meeting->id }})">
+            <button class="text-gray-500 hover:text-black focus:outline-none" onclick="toggleMenu({{ $file->id }})">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12M6 6h12M6 18h12" />
                 </svg>
@@ -48,8 +45,8 @@
 @endsection
 
 <script>
-    function toggleMenu(meetingId) {
-        const menu = document.getElementById(`menu-${meetingId}`);
+    function toggleMenu(fileId) {
+        const menu = document.getElementById(`menu-${fileId}`);
         menu.classList.toggle('hidden');
     }
 </script>

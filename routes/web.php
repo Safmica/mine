@@ -30,6 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/courses/{course}/meetings', [MeetingController::class, 'indexByCourse'])->name('meetings.indexByCourse');
     Route::post('/courses/{course}/meetings', [MeetingController::class, 'store'])->name('courses.meetings.store');
     Route::get('/courses/{course}/meetings/{meeting}/files', [FileController::class, 'indexByMeeting'])->name('files.indexByMeeting');
-    Route::post('/courses/{course}/meetings', [MeetingController::class, 'store'])->name('courses.meetings.store');
+    Route::post('/files', [FileController::class, 'store'])->name('courses.meetings.files.store');
     Route::resource('courses', CourseController::class);
 });
