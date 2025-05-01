@@ -17,9 +17,9 @@ class FileController extends Controller
         return view('file', compact('files', 'course', 'courses'));
     }
 
-    public function indexByMeeting(Course $course, Course $meeting)
+    public function indexByMeeting(Course $course, Meeting $meeting)
     {
-        $Files = $meeting->Files;
+        $files = $meeting->Files;
         $meetings = Meeting::all();
 
         return view('file', compact('files', 'course', 'meeting', 'meetings'));

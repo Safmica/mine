@@ -1,4 +1,4 @@
-@props(['type', 'course' => null])
+@props(['type', 'course', 'meeting' => null])
 @php
     $endpoints = [
         'courses' => route('courses.store'),

@@ -1,4 +1,4 @@
-@extends('layouts.meeting')
+@extends('layouts.index')
 
 @section('title', 'Index')
 

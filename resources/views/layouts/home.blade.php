@@ -7,7 +7,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-white">
-    <x-navbar />
+    @if (!Request::is('login') && !Request::is('signup'))
+        <x-navbar />
+    @endif
+    <x-alert />
     <div class="container mx-auto mt-6">
         @yield('content')
     </div>
