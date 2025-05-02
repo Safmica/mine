@@ -62,11 +62,14 @@ class MeetingController extends Controller
 
         return redirect()->route('meetings.index')->with('success', 'Meeting updated successfully');
     }
-
-    public function destroy(Meeting $meeting)
+    public function destroy(Course $course, Meeting $meeting)
     {
+        if ($meeting->course_id !== $course->id) {
+            return redirect()->route('meetings.indexByCourse', $course->id)->with('error', 'Invalid meeting');
+        }
+    
         $meeting->delete();
-
-        return redirect()->route('meetings.index')->with('success', 'Meeting deleted successfully');
-    }
+    
+        return redirect()->route('meetings.indexByCourse', $course->id)->with('success', 'Meeting deleted successfully');
+    }    
 }

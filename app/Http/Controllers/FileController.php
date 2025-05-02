@@ -75,10 +75,14 @@ class FileController extends Controller
         return redirect()->route('Files.index')->with('success', 'File updated successfully');
     }
 
-    public function destroy(File $File)
+    public function destroy(Course $course, Meeting $meeting, File $file)
     {
-        $File->delete();
-
-        return redirect()->route('Files.index')->with('success', 'File deleted successfully');
-    }
+        if ($file->meeting_id !== $meeting->id) {
+            return redirect()->route('meetings.indexByCourse', $course->id)->with('error', 'Invalid file');
+        }
+    
+        $file->delete();
+    
+        return redirect()->route('files.indexByMeeting', [$course->id, $meeting->id])->with('success', 'File deleted successfully');
+    }    
 }

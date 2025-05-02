@@ -29,7 +29,9 @@ Route::middleware('auth')->group(function () {
         return view('meeting');})->name('meeting');
     Route::get('/courses/{course}/meetings', [MeetingController::class, 'indexByCourse'])->name('meetings.indexByCourse');
     Route::post('/courses/{course}/meetings', [MeetingController::class, 'store'])->name('courses.meetings.store');
+    Route::delete('/courses/{course}/meetings/{meeting}', [MeetingController::class, 'destroy'])->name('courses.meetings.destroy');
     Route::get('/courses/{course}/meetings/{meeting}/files', [FileController::class, 'indexByMeeting'])->name('files.indexByMeeting');
     Route::post('/files', [FileController::class, 'store'])->name('courses.meetings.files.store');
-    Route::resource('courses', CourseController::class);
+    Route::delete('/courses/{course}/meetings/{meeting}/files/{file}', [FileController::class, 'destroy'])->name('courses.meetings.files.destroy');
+    Route::resource('courses', CourseController::class)->except(['show']);
 });

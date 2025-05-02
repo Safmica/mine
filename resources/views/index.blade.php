@@ -25,7 +25,11 @@
             <div id="menu-{{ $course->id }}" class="hidden absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-md">
                 <ul>
                     <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a></li>
-                    <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Delete</a></li>
+                    <li><form action="{{ route('courses.destroy', $course->id) }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100" method="POST" onsubmit="return confirm('Are you sure?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-500">Delete</button>
+                    </form></li>
                 </ul>
             </div>
         </div>

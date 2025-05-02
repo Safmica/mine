@@ -60,11 +60,17 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         if ($course->user_id !== Auth::id()) {
-            return redirect()->route('courses.index')->with('error', 'You do not have permission to delete this course');
+            return redirect()->route('index')->with('error', 'You do not have permission to delete this course');
         }
 
         $course->delete();
 
-        return redirect()->route('courses.index')->with('success', 'Course berhasil dihapus!');
+        return redirect()->route('index')->with('success', 'Course berhasil dihapus!');
     }
+
+    public function show(Course $course)
+{
+    abort(404);
+}
+
 }
