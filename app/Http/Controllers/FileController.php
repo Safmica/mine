@@ -7,9 +7,11 @@ use App\Models\Meeting;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class FileController extends Controller
 {
+    use AuthorizesRequests;
     public function index(Course $course)
     {
         $files = $course->files;
@@ -20,6 +22,7 @@ class FileController extends Controller
 
     public function indexByMeeting(Course $course, Meeting $meeting)
     {
+        $this->authorize('view', $course);
         $files = $meeting->files;
         $courses = Course::where('user_id', Auth::id())->get(); 
     

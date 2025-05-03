@@ -6,9 +6,11 @@ use App\Models\Meeting;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class MeetingController extends Controller
 {
+    use AuthorizesRequests;
     public function index(Course $course)
     {
         $meetings = $course->meetings;
@@ -19,6 +21,7 @@ class MeetingController extends Controller
 
     public function indexByCourse(Course $course)
     {
+        $this->authorize('view', $course);
         $meetings = $course->meetings;
         $courses = Course::where('user_id', Auth::id())->get(); 
 
