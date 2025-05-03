@@ -8,16 +8,11 @@ use App\Http\Controllers\FileController;
 
 
 Route::get('/', function () {
-    return view('home');
-})->name('home')->middleware(CheckSession::class);;
-
+    return view('home');})->name('home')->middleware(CheckSession::class);;
 Route::get('/signup', function () {
-    return view('signup');
-})->name('signup');
-
+    return view('signup');})->name('signup');
 Route::get('/login', function () {
-    return view('login');
-})->name('login');
+    return view('login');})->name('login');
 Route::post('/signup', [UserController::class, 'signup'])->name('signup.post');
 Route::post('/login', [UserController::class, 'login'])->name('login.post');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
