@@ -11,7 +11,7 @@
     <x-navbar />
 
     <div class="flex">
-        <div class="w-64 h-screen bg-cos-yellow text-white rounded-lg lg:block hidden">
+        <div class="w-64 h-screen bg-cos-yellow mx-2 mb-2 text-white rounded-lg lg:block hidden">
             @include('components.sidebar', ['courses' => $courses])
         </div>        
 
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <div class="w-full h-screen bg-white text-black rounded-lg">
+        <div class="w-full h-screen bg-cos-yellow mx-2 mb-2 text-black rounded-lg">
             @yield('content')
         </div>
     </div>

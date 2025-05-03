@@ -1,8 +1,8 @@
-<div class="sidebar bg-cos-yellow text-black p-4 rounded-r-xl max-h-screen overflow-auto">
-    <h3 class="text-lg font-bold">Courses</h3>
+<div class="sidebar bg-cos-yellow text-black p-4 rounded-xl max-h-screen overflow-auto">
+    <h2 class="text-2xl font-bold">Courses List</h2>
     
     @if($courses->isEmpty())
-        <p>Tidak ada courses tersedia.</p>
+        <p>Tidak ada course tersedia.</p>
     @else
         <ul class="mt-4">
             @foreach ($courses as $course)

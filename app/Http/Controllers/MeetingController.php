@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Meeting;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MeetingController extends Controller
 {
@@ -19,7 +20,7 @@ class MeetingController extends Controller
     public function indexByCourse(Course $course)
     {
         $meetings = $course->meetings;
-        $courses = Course::all();
+        $courses = Course::where('user_id', Auth::id())->get(); 
 
         return view('meeting', compact('meetings', 'course', 'courses'));
     }

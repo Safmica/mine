@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\Meeting;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
 {
@@ -20,10 +21,9 @@ class FileController extends Controller
     public function indexByMeeting(Course $course, Meeting $meeting)
     {
         $files = $meeting->files;
-        $meetings = Meeting::all();
-        $courses = Course::all();
+        $courses = Course::where('user_id', Auth::id())->get(); 
     
-        return view('file', compact('files','course', 'courses', 'meeting', 'meetings'));
+        return view('file', compact('files','course', 'courses', 'meeting'));
     }    
 
     public function create()
