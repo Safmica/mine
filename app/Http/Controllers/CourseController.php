@@ -29,15 +29,6 @@ class CourseController extends Controller
         return redirect()->route('index')->with('success', 'Course berhasil dibuat!');
     }
 
-    public function edit(Course $course)
-    {
-        if ($course->user_id !== Auth::id()) {
-            return redirect()->route('courses.index')->with('error', 'You do not have permission to edit this course');
-        }
-
-        return view('courses.edit', compact('course'));
-    }
-
     public function update(Request $request, Course $course)
     {
         if ($course->user_id !== Auth::id()) {

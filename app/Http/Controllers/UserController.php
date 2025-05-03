@@ -38,11 +38,6 @@ class UserController extends Controller
         return redirect('/login')->with('success', 'Signup berhasil!');
     }
 
-    public function showLogin()
-    {
-        return view('login');
-    }
-
     public function login(Request $request)
     {
         $request->validate([

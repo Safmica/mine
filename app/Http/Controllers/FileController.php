@@ -12,14 +12,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class FileController extends Controller
 {
     use AuthorizesRequests;
-    public function index(Course $course)
-    {
-        $files = $course->files;
-        $meetings = Course::all();
-        
-        return view('file', compact('files', 'course', 'courses'));
-    }
-
     public function indexByMeeting(Course $course, Meeting $meeting)
     {
         $this->authorize('view', $course);
@@ -28,12 +20,6 @@ class FileController extends Controller
     
         return view('file', compact('files','course', 'courses', 'meeting'));
     }    
-
-    public function create()
-    {
-        $courses = Course::all();
-        return view('Files.create', compact('courses'));
-    }
 
     public function store(Request $request)
     {
@@ -58,12 +44,6 @@ class FileController extends Controller
             ->with('success', 'File uploaded successfully!');
     }
     
-
-    public function edit(File $File)
-    {
-        $courses = Course::all();
-        return view('Files.edit', compact('File', 'courses'));
-    }
 
     public function update(Request $request, File $File)
     {
