@@ -5,6 +5,11 @@
 @section('content')
 <div class="min-h-screen flex items-center justify-center bg-white px-4">
     <div class="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
+        <a href="/" class="flex justify-start">
+            <button class="text-cos-yellow font-bold pb-5 rounded">
+                < Home
+            </button>
+        </a>
         <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">Login to MINE</h2>
         
         <form action="{{ route('login') }}" method="POST" class="space-y-4">
