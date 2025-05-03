@@ -110,6 +110,11 @@
                     </button>
                 </div>
             </form>
+            <div class="flex justify-end">
+                <button onclick="document.getElementById('modal-{{ $type }}').classList.add('hidden')" class="bg-cos-dark-yellow hover:bg-cos-yellow text-white font-bold py-2 px-4 rounded">
+                    Back
+                </button>
+            </div>
         @endif        
     </div>
 </div>
