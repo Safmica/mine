@@ -21,6 +21,9 @@
                     {{ $course->description }}
                 </span>
             </a>
+            <div id="modal-edit-{{ $course->id }}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <x-form-edit type="course" :course="$course" :id="$course->id" :title="$course->title" :description="$course->description"/>
+            </div>
             <div x-data="{ open: false }" class="relative">
                 <button class="text-gray-500 hover:text-black focus:outline-none" @click="open = !open">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -30,14 +33,19 @@
 
                 <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-md">
                     <ul>
-                        <li><a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Edit</a></li>
+                        <li class="hover:bg-gray-100">
+                            <button onclick="document.getElementById('modal-edit-{{ $course->id }}').classList.remove('hidden')" 
+                                    class="w-full text-left px-4 py-2 text-black">
+                                Edit
+                            </button>
+                        </li>   
                         <li class="hover:bg-gray-100">
                             <form action="{{ route('courses.destroy', $course->id) }}" method="POST" class="w-full">
-                                @csrf
                                 @method('DELETE')
                                 <button type="submit" class="w-full text-left px-4 py-2 text-red-500">
                                     Delete
                                 </button>
+                                @csrf
                             </form>
                         </li>       
                     </ul>

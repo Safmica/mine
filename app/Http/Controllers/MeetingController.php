@@ -34,18 +34,19 @@ class MeetingController extends Controller
         ->with('success', 'Meeting created successfully');
     }
 
-    public function update(Request $request, Meeting $meeting)
+    public function update(Request $request, Course $course, Meeting $meeting)
     {
         $request->validate([
-            'course_id' => 'required|exists:courses,id',
             'meeting_name' => 'required|string|max:255',
             'topic' => 'nullable|string|max:255',
         ]);
-
+    
         $meeting->update($request->all());
 
-        return redirect()->route('meetings.index')->with('success', 'Meeting updated successfully');
+        return redirect()->route('meetings.indexByCourse', ['course' => $course->id])
+        ->with('success', 'Meeting updated successfully.');
     }
+    
     public function destroy(Course $course, Meeting $meeting)
     {
         if ($meeting->course_id !== $course->id) {

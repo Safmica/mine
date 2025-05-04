@@ -45,17 +45,17 @@ class FileController extends Controller
     }
     
 
-    public function update(Request $request, File $File)
+    public function update(Request $request, Course $course, Meeting $meeting, File $File)
     {
         $request->validate([
-            'course_id' => 'required|exists:courses,id',
-            'File_name' => 'required|string|max:255',
-            'topic' => 'nullable|string|max:255',
+            'filename' => 'required|string|max:255',
         ]);
 
         $File->update($request->all());
-
-        return redirect()->route('Files.index')->with('success', 'File updated successfully');
+    
+        return redirect()
+        ->route('files.indexByMeeting', ['course' => $course->id, $meeting->id])
+        ->with('success', 'File updated successfully!');
     }
 
     public function destroy(Course $course, Meeting $meeting, File $file)
